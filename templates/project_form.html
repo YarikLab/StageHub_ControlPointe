@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}{{ page_title }} · StageHub{% endblock %}
+{% block content %}
+<div class="form-page">
+  <a class="back-link" href="{{ url_for('projects') }}">← Назад к проектам</a>
+  <section class="form-card wide-form">
+    <p class="eyebrow">НОВАЯ СВЕТОВАЯ КОНЦЕПЦИЯ</p><h1>{{ page_title }}</h1>
+    <p class="muted">Заполни основные сведения. Их можно будет открыть в своей библиотеке.</p>
+    <form method="post" class="form-stack">
+      <label>Название проекта *<input name="title" type="text" maxlength="100" required value="{{ request.form.get('title', '') }}" placeholder="Например, Worship Night"></label>
+      <label>Площадка<input name="venue" type="text" maxlength="120" value="{{ request.form.get('venue', '') }}" placeholder="Название зала или площадки"></label>
+      <label>Описание концепции<textarea name="description" rows="4" placeholder="Настроение, цветовая палитра, сцена, задачи...">{{ request.form.get('description', '') }}</textarea></label>
+      <label>Оборудование и заметки<textarea name="equipment" rows="5" placeholder="Например: 12 × LED Wash, 8 × Beam, дым-машина...">{{ request.form.get('equipment', '') }}</textarea></label>
+      <div class="form-actions"><a class="button button-secondary" href="{{ url_for('projects') }}">Отмена</a><button class="button button-primary" type="submit">Сохранить проект</button></div>
+    </form>
+  </section>
+</div>
+{% endblock %}

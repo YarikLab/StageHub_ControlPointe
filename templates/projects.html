@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Мои проекты · StageHub{% endblock %}
+{% block content %}
+<section class="section-heading page-heading">
+  <div><p class="eyebrow">ТВОЯ БИБЛИОТЕКА</p><h1>Мои проекты</h1><p class="muted">Все сохранённые световые концепции в одном месте.</p></div>
+  <a class="button button-primary" href="{{ url_for('project_create') }}">＋ Новый проект</a>
+</section>
+{% if projects %}
+<div class="project-grid">
+  {% for project in projects %}
+  <article class="project-card">
+    <span class="project-icon">✦</span><h2>{{ project.title }}</h2>
+    <p>{{ project.venue or "Площадка не указана" }}</p>
+    <p class="project-description">{{ project.description or "Описание пока не добавлено." }}</p>
+    <div class="project-card-actions">
+      <a class="text-link" href="{{ url_for('project_detail', project_id=project.id) }}">Открыть →</a>
+      <form method="post" action="{{ url_for('project_delete', project_id=project.id) }}" onsubmit="return confirm('Удалить этот проект?');">
+        <button class="danger-link" type="submit">Удалить</button>
+      </form>
+    </div>
+  </article>
+  {% endfor %}
+</div>
+{% else %}
+<div class="empty-state"><div class="empty-icon">✦</div><h2>Здесь пока тихо</h2><p>Добавь первый проект, чтобы начать собирать свою библиотеку освещения.</p><a class="button button-primary" href="{{ url_for('project_create') }}">Создать первый проект</a></div>
+{% endif %}
+{% endblock %}

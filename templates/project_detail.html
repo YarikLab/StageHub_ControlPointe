@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}{{ project.title }} · StageHub{% endblock %}
+{% block content %}
+<div class="form-page">
+  <a class="back-link" href="{{ url_for('projects') }}">← Назад к проектам</a>
+  <article class="detail-card">
+    <p class="eyebrow">ПРОЕКТ ОСВЕЩЕНИЯ</p>
+    <h1>{{ project.title }}</h1>
+    <p class="detail-venue">⌖ {{ project.venue or "Площадка не указана" }}</p>
+    <div class="detail-meta"><span>Создан</span><strong>{{ project.created_at.strftime("%d.%m.%Y") if project.created_at else "Недавно" }}</strong></div>
+    <section class="detail-section"><h2>Описание концепции</h2><p class="preserve-lines">{{ project.description or "Описание не добавлено." }}</p></section>
+    <section class="detail-section"><h2>Оборудование и заметки</h2><p class="preserve-lines">{{ project.equipment or "Список оборудования не добавлен." }}</p></section>
+    <form method="post" action="{{ url_for('project_delete', project_id=project.id) }}" onsubmit="return confirm('Точно удалить проект?');"><button class="button button-danger" type="submit">Удалить проект</button></form>
+  </article>
+</div>
+{% endblock %}

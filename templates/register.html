@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Регистрация · StageHub{% endblock %}
+{% block content %}
+<div class="auth-layout">
+  <section class="auth-intro"><p class="eyebrow">НОВЫЙ АККАУНТ</p><h1>Создай своё<br>световое пространство.</h1><p>Регистрируйся, чтобы хранить проекты и возвращаться к идеям в любой момент.</p></section>
+  <section class="form-card">
+    <h2>Регистрация</h2><p class="muted">Заполни поля ниже, чтобы начать.</p>
+    <form method="post" class="form-stack">
+      <label>Имя пользователя<input name="username" type="text" minlength="3" maxlength="40" autocomplete="username" required value="{{ request.form.get('username', '') }}"></label>
+      <label>Электронная почта<input name="email" type="email" maxlength="120" autocomplete="email" required value="{{ request.form.get('email', '') }}"></label>
+      <label>Пароль<input name="password" type="password" minlength="8" autocomplete="new-password" required><small>Не менее 8 символов.</small></label>
+      <label>Повтори пароль<input name="password_confirm" type="password" minlength="8" autocomplete="new-password" required></label>
+      <button class="button button-primary button-full" type="submit">Создать аккаунт</button>
+    </form>
+    <p class="form-bottom">Уже зарегистрирован? <a href="{{ url_for('login') }}">Войти</a></p>
+  </section>
+</div>
+{% endblock %}

@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}{{ app_name }}{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+<header class="site-header">
+  <div class="container nav-wrap">
+    <a class="brand" href="{{ url_for('index') }}"><span class="brand-mark">S</span> StageHub</a>
+    <nav>
+      <a href="{{ url_for('index') }}">Главная</a>
+      {% if current_user.is_authenticated %}
+        <a href="{{ url_for('projects') }}">Мои проекты</a>
+        <span class="nav-user">{{ current_user.username }}</span>
+        <form class="inline-form" action="{{ url_for('logout') }}" method="post">
+          <button class="nav-logout" type="submit">Выйти</button>
+        </form>
+      {% else %}
+        <a href="{{ url_for('login') }}">Вход</a>
+        <a class="nav-register" href="{{ url_for('register') }}">Регистрация</a>
+      {% endif %}
+    </nav>
+  </div>
+</header>
+
+<main class="container main-content">
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      <div class="flash-stack" aria-live="polite">
+        {% for category, message in messages %}
+          <div class="flash flash-{{ category }}">{{ message }}</div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  {% endwith %}
+  {% block content %}{% endblock %}
+</main>
+
+<footer class="site-footer">
+  <div class="container">StageHub · Учебный проект на Flask и SQLite</div>
+</footer>
+</body>
+</html>
